@@ -1,5 +1,5 @@
 '''
-
+The structure of this ANN has to be the same as the ANN; otherwise, there would be mistakes.
 
 '''
 
@@ -8,18 +8,20 @@ import tensorflow as tf
 import pickle
 import numpy as np
 import math
+from make_in_ANN import create_feature_sets_and_labels
 from make_in_ANN import create_feature_sets
 import sys
 
-predict_set=create_feature_sets('EUR_ham.dat','AMR_ham.dat','SAS_ham.dat',
-		'EAS_ham.dat','AFR_ham.dat','UNK_ham.dat')
+#Only loads sets to predict, we don't care about if they have reference or not
+predict_set=create_feature_sets('EUR_ham.dat','AMR_ham.dat','SAS_ham.dat','EAS_ham.dat',
+	'AFR_ham.dat','UNK_ham.dat')
 
 sess=tf.Session()    
 #First let's load meta graph and restore weights
 saver = tf.train.import_meta_graph('model1-1000.meta')
 saver.restore(sess,tf.train.latest_checkpoint('./'))
 
-n_nodes_hl1 = 100
+n_nodes_hl1 = 100									#Same structure as ANN
 n_nodes_hl2 = 100
 n_nodes_hl3 = 100
 

@@ -1,5 +1,5 @@
 '''
-
+Same structure as ANN.py
 
 '''
 
@@ -32,6 +32,8 @@ batch_x = np.array(predict_set[:])
 batch_x=np.float32(batch_x)
 feed_dict={x:batch_x}
 
+#Load the weights and biases to hidden layers
+
 hidden_1_layer = {'f_fum':n_nodes_hl1,
                   'weight':tf.Variable(sess.run('w1:0')),
                   'bias':tf.Variable(sess.run('b1:0'))}
@@ -48,6 +50,8 @@ output_layer = {'f_fum':None,
                 'weight':tf.Variable(sess.run('w4:0')),
                   'bias':tf.Variable(sess.run('b4:0'))}
 
+#Compute the output of the network with the load values and the new inputs (predict_set)
+
 sess.run(tf.initialize_all_variables())
 
 l1 = tf.add(tf.matmul(x,hidden_1_layer['weight']), hidden_1_layer['bias'])
@@ -61,7 +65,9 @@ l3 = tf.nn.relu(l3)
 
 output = tf.matmul(l3,output_layer['weight']) + output_layer['bias']
 
-fh=open('clasification_results.dat','w')
+#Store the classification and the outputs from ANN
+
+fh=open('classification_results.dat','w')
 classification_result=sess.run(output,feed_dict)
 for i in range(len(classification_result)):
 	for j in range(5):
@@ -69,7 +75,7 @@ for i in range(len(classification_result)):
 		fh.write('\t')
 	fh.write('\n')
 classification=sess.run(tf.argmax(classification_result,1),feed_dict)
-fh=open('clasification.dat','w')		
+fh=open('classification.dat','w')		
 for i in range(len(classification)):
 	fh.write(str(classification[i]))
 	fh.write('\t')

@@ -16,8 +16,6 @@ import sys
 
 train_x,train_y,groups = create_feature_sets_and_labels('EUR_avr.dat','AMR_avr.dat','SAS_avr.dat',
 		'EAS_avr.dat','AFR_avr.dat')
-predict_set=create_feature_sets('EUR_avr.dat','AMR_avr.dat','SAS_avr.dat','EAS_avr.dat',
-	'AFR_avr.dat','UNK_avr.dat')
 
 n_nodes_hl1 = 100
 n_nodes_hl2 = 100											#Number of neurons per hidden layer

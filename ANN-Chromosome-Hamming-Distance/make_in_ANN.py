@@ -1,8 +1,9 @@
+'''This routine returns the pre-processed data in the format required by tensorflow.'''
 import numpy as np
 import random
 import math
 
-def sample_handling(sample,clasification):
+def sample_handling(sample,clasification):				#Append the input from the sample with its corresponding target expected value.
 
 	features=[]
 	features=list(features)
@@ -12,7 +13,9 @@ def sample_handling(sample,clasification):
 	return(features)
 
 
-def create_feature_sets_and_labels(EUR,AMR,SAS,EAR,AFR):
+def create_feature_sets_and_labels(EUR,AMR,SAS,EAR,AFR):		#In this function, we read the files with numpy and associate the expected values 
+									#as 1 and 0 for the unexpected ones; in this way, a person from Europe will have 
+									#an expected value of [1,0,0,0,0].     [EUR,AMR,SAS,EAS,AFR]
 	
 	features = []
 	EU=np.loadtxt(EUR)
@@ -40,7 +43,9 @@ def create_feature_sets_and_labels(EUR,AMR,SAS,EAR,AFR):
 	features += sample_handling(AF,s_AF)	
 
 
-	random.shuffle(features)
+	random.shuffle(features)					#To implement cross-validation, we gather all the known samples into a single array 
+									#and shuffle them randomly. Thus, train_x will be the network input files and train_y 
+									#the expected output files.
 	features = np.array(features)
 	train_x = list(features[:][:,0])
 	train_y = list(features[:][:,1])
@@ -61,7 +66,8 @@ def create_feature_sets_and_labels(EUR,AMR,SAS,EAR,AFR):
 
 	return train_x,train_y,groups
 
-def create_feature_sets(EUR,AMR,SAS,EAR,AFR,UNK):
+def create_feature_sets(EUR,AMR,SAS,EAR,AFR,UNK):			#This function does the same as the previous one, but we are only interested in the 
+									#input values of the network; it will be helpful when we do not know the reference value of a sample.
 	features = []
 	EU=np.loadtxt(EUR)
 	AM=np.loadtxt(AMR)
