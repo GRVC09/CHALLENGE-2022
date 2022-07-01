@@ -1,1 +1,11 @@
 # CHALLENGE-2022
+
+In this project, we implemented an artificial neural network (ANN) to classify people by region based on their genetic sequence. To do this, we consider the average normalized Hamming distance between an individual and its peers previously classified by continent. In this way, we divide the problem into two parts, a simple model where the network inputs will be the total average of the Hamming distance concerning each continent (five inputs for each continent). For the second part, we also add that the genetic sequence is divided into 22 chromosomes so that we will have as inputs 5(continents)*22(chromosomes)=110.
+
+Each folder in this directory contains python routines and scripts that describe (and executes) all the steps to be developed; from reading and processing of .gz, .vcf, and .csv files to the training and subsequent prediction of the samples by the ANN. Folder ANN-Average-Hamming-Distance develops the first solution to this problem: to take the average over every one of the Hamming distances between a reference individual and the groups of people that make up a region. Folder ANN-Chromosome-Hamming-Distance develops the second option, which consists in considering that the size of the genetic sequence consists of 22 chromosomes.
+
+If you want to get your model for a set of files, be it vcf.gz, vcf or .csv, copy and paste the .py files and the script into the folders in your directory where the samples to analyze are located. Then, run ./script-train-test, and you will get the model (.meta) and classification of your samples (Prediction.txt). Don't forget to add a file called coordination.txt, where you must include the name of the file (without extension) and the group to which it belongs (Europe EUR, America AMR, Africa AFR, South East Asia SAS, or East Asia EAS).
+
+On the other hand, if you want to know to which population a set of TWO or more samples belong, each folder includes another ANN-trained folder that provides a previously trained model and a bunch of references to perform the Hamming distance analysis. In this way, you only have to copy all the files into the folder where you have your samples to analyze and run ./script-test again; this will provide you with the classification in the prediction file.
+
+We test All routines and scripts on ubuntu 16.04, python2.17, and Tensorflow 0.11.
