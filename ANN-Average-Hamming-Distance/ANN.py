@@ -22,7 +22,7 @@ n_nodes_hl2 = 100											#Number of neurons per hidden layer
 n_nodes_hl3 = 100
 
 n_classes = 5
-hm_epochs = 1000
+hm_epochs = 1000											#Number of epochs to train the ANN
 
 loss = []
 accuracy = []
