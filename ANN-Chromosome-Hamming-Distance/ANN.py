@@ -1,0 +1,114 @@
+'''
+
+
+'''
+
+
+import tensorflow as tf
+import pickle
+import numpy as np
+import math
+from make_in_ANN import create_feature_sets_and_labels
+from make_in_ANN import create_feature_sets
+import sys
+
+train_x,train_y,groups = create_feature_sets_and_labels('EUR_ham.dat','AMR_ham.dat','SAS_ham.dat',
+		'EAS_ham.dat','AFR_ham.dat')
+
+n_nodes_hl1 = 100
+n_nodes_hl2 = 100
+n_nodes_hl3 = 100
+
+n_classes = 5
+hm_epochs = 1000
+
+loss = []
+accuracy = []
+
+x = tf.placeholder('float',name='x_')
+y = tf.placeholder('float',name='y_')
+
+hidden_1_layer = {'f_fum':n_nodes_hl1,
+                  'weight':tf.Variable(tf.random_normal([len(train_x[0]), n_nodes_hl1]),name='w1'),
+                  'bias':tf.Variable(tf.random_normal([n_nodes_hl1]),name='b1')}
+
+hidden_2_layer = {'f_fum':n_nodes_hl2,
+                  'weight':tf.Variable(tf.random_normal([n_nodes_hl1, n_nodes_hl2]),name='w2'),
+                  'bias':tf.Variable(tf.random_normal([n_nodes_hl2]),name='b2')}
+
+hidden_3_layer = {'f_fum':n_nodes_hl3,
+                  'weight':tf.Variable(tf.random_normal([n_nodes_hl2, n_nodes_hl3]),name='w3'),
+                  'bias':tf.Variable(tf.random_normal([n_nodes_hl3]),name='b3')}
+
+output_layer = {'f_fum':None,
+                'weight':tf.Variable(tf.random_normal([n_nodes_hl3, n_classes]),name='w4'),
+                'bias':tf.Variable(tf.random_normal([n_classes]),name='b4')}
+
+
+# Nothing changes
+def neural_network_model1(x):
+
+    l1 = tf.add(tf.matmul(x,hidden_1_layer['weight']), hidden_1_layer['bias'])
+    l1 = tf.nn.relu(l1)
+
+    l2 = tf.add(tf.matmul(l1,hidden_2_layer['weight']), hidden_2_layer['bias'])
+    l2 = tf.nn.relu(l2)
+
+    l3 = tf.add(tf.matmul(l2,hidden_3_layer['weight']), hidden_3_layer['bias'])
+    l3 = tf.nn.relu(l3)
+
+    output = tf.add(tf.matmul(l3,output_layer['weight']),output_layer['bias'],name='out_network')
+
+    return output
+
+
+def train_neural_network(x):
+	prediction = neural_network_model1(x)
+	cost = tf.reduce_mean( tf.nn.softmax_cross_entropy_with_logits(prediction,y) )
+	optimizer = tf.train.AdamOptimizer(learning_rate=0.001).minimize(cost)
+	saver = tf.train.Saver()
+	with tf.Session() as sess:
+		sess.run(tf.initialize_all_variables())
+	    
+		for epoch in range(hm_epochs):
+			print(epoch)
+			
+			accuracy_aux=0
+			loss_aux=0
+			for i in range(5):				
+				epoch_loss = 0
+				for j in range(5):				
+					if i != j:
+						start=groups[j][0]
+						end=groups[j][1]-1
+						batch_x = np.array(train_x[start:end])
+						batch_y = np.array(train_y[start:end])
+						_, c = sess.run([optimizer, cost], feed_dict={x: batch_x,
+				        		                                        y: batch_y})
+						epoch_loss += c/(groups[j][1]-groups[j][0])
+				correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
+				accuracy1 = tf.reduce_mean(tf.cast(correct, 'float'))
+				accu1=accuracy1.eval({x:train_x[groups[i][0]:groups[i][1]-1], y:train_y[groups[i][0]:groups[i][1]-1]})
+				accuracy_aux+=accu1/5.0
+				loss_aux+=epoch_loss/5.0
+			loss.append(loss_aux)
+			accuracy.append(accuracy_aux)
+
+		save_path = saver.save(sess, 'model1',global_step=epoch+1)
+		
+		print("Model saved in path: %s" % save_path)
+
+train_neural_network(x)
+
+f= open("perdida_3Capas_100_100_100.txt","w+")
+g= open("acierto_3Capas_100_100_100.txt","w+")
+
+for i in range(len(accuracy)):
+	a=str(accuracy[i])
+	l=str(loss[i])
+	f.write(l)
+	f.write('\n')
+	g.write(a)
+	g.write('\n')
+f.close()
+g.close()
