@@ -1,7 +1,11 @@
+'''
+This algorithm takes the data separated by continent and writes in each line of *_set.dat the information for a single sample.
+'''
+
 num_per_chrom=[]
 num_per_continet=[]
 num_total=0
-with open('Information.txt','r') as info:
+with open('Information.txt','r') as info:						#Read how many alleles are per chromosome and how many samples are per continent
 	for i in range(1,5):
 		line=info.readline()
 		if i==2:
@@ -9,19 +13,21 @@ with open('Information.txt','r') as info:
 		if i==4:
 			b=line.split()
 for i in range(len(a)):
-	num_per_chrom.append(int(a[i]))
+	num_per_chrom.append(int(a[i]))							#Number of alleles per chromosome
 	num_total+=int(a[i])
 print(num_per_chrom)
 for i in range(len(b)):
-	num_per_continet.append(int(b[i]))
+	num_per_continet.append(int(b[i]))						#Number of samples per continent
+
 print(num_per_continet)
 print('Making groups of continents')
 continents={'EUR','AFR','AMR','SAS','EAS','UNK'}
 
-sampl_per_continent={'EUR':int(num_per_continet[0]),'AMR':int(num_per_continet[1]),'SAS':int(num_per_continet[2]),
+sampl_per_continent={'EUR':int(num_per_continet[0]),'AMR':int(num_per_continet[1]),'SAS':int(num_per_continet[2]),	#Dictionary of continent and samples
 'EAS':int(num_per_continet[3]),'AFR':int(num_per_continet[4]),'UNK':int(num_per_continet[5])}
 
-continent_dat={'EUR':'EUR.dat','AMR':'AMR.dat','SAS':'SAS.dat', 'EAS':'EAS.dat' ,'AFR':'AFR.dat','UNK':'UNK.dat'}
+continent_dat={'EUR':'EUR.dat','AMR':'AMR.dat','SAS':'SAS.dat', 'EAS':'EAS.dat' ,'AFR':'AFR.dat','UNK':'UNK.dat'}	#Dictionaries of read / write files
+
 
 continent_set={'EUR':'EUR_set.dat','AMR':'AMR_set.dat','SAS':'SAS_set.dat', 'EAS':'EAS_set.dat' ,'AFR':'AFR_set.dat','UNK':'UNK_set.dat'}
 
