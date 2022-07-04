@@ -11,10 +11,10 @@ with open('Information.txt','r') as info:
 for i in range(len(a)):
 	num_per_chrom.append(int(a[i]))
 	num_total+=int(a[i])
-print(num_per_chrom)
+
 for i in range(len(b)):
 	num_per_continet.append(int(b[i]))
-print(num_per_continet)
+print('Make the groups of continents')
 
 continents={'UNK'}
 
