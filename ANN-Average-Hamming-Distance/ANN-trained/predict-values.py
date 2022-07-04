@@ -19,7 +19,8 @@ with open('Information.txt','r') as info:
 predict=open('Prediction.txt','w')
 predict.write('Reference					Expected	Prediction')
 predict.write('\n')
-with open('clasification.dat','r') as dat:
+print('Writing results in classification.dat')
+with open('classification.dat','r') as dat:
 	line=dat.readline()
 	line=line.split()
 	for i in range(len(line)):
