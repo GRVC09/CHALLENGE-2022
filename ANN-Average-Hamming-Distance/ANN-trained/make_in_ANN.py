@@ -2,6 +2,8 @@ import numpy as np
 import random
 import math
 
+print('Making the ANN inputs')
+
 def sample_handling(sample,clasification):
 
 	features=[]
