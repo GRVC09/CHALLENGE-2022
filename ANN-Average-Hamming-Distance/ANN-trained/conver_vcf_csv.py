@@ -10,6 +10,7 @@ for x in os.listdir(os.path.dirname(os.path.abspath(sys.argv[0]))):		#Read al th
 			csv.write(y[:-3])
 			csv.write('\n')													
 			with open(x,'r') as file:
+				print('Convert *.vct to *.csv')
 				for line in file:
 					if line[0] != '#':
 						sp=line.split()												#Skip lines with # at the begin					
