@@ -1,5 +1,5 @@
 '''
-This algorithm takes the data separated by continent and writes in each line of *_set.dat the information for a single sample.
+This algorithm takes the UNKnown data and writes in each line of UNK_set.dat the information for a single sample.
 '''
 num_per_chrom=[]
 num_per_continet=[]
