@@ -2,7 +2,7 @@
 import numpy as np
 import random
 import math
-
+print('Making the ANN entries...')
 def sample_handling(sample,clasification):				#Append the input from the sample with its corresponding target expected value.
 
 	features=[]
