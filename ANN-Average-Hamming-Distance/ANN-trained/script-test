@@ -21,3 +21,5 @@ python hamming-distance.py		#that makes it easy to calculate the Hamming distanc
 python ANN_single_prediction.py		#To predict the ancestry of each sample, we use the ANN_prediction where the .meta file 
 					#contains all the values for weights and bias. The classification.dat store the prediction for each sample
 					#in order with organization in Information.txt.
+
+python predict-values.py		#We save the prediction of any sample in the Prediction.txt 
