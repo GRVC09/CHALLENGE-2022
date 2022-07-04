@@ -18,6 +18,7 @@ predict_set=create_feature_sets('EUR_avr.dat','AMR_avr.dat','SAS_avr.dat','EAS_a
 
 sess=tf.Session()    
 #First let's load meta graph and restore weights
+print('Load parameters...')
 saver = tf.train.import_meta_graph('model1-1000.meta')
 saver.restore(sess,tf.train.latest_checkpoint('./'))
 
@@ -52,6 +53,8 @@ output_layer = {'f_fum':None,
 
 sess.run(tf.initialize_all_variables())
 
+print('Predicting...')
+
 l1 = tf.add(tf.matmul(x,hidden_1_layer['weight']), hidden_1_layer['bias'])
 l1 = tf.nn.relu(l1)
 
@@ -63,6 +66,7 @@ l3 = tf.nn.relu(l3)
 
 output = tf.matmul(l3,output_layer['weight']) + output_layer['bias']
 
+print('Writing results in clasification_results.dat')
 fh=open('clasification_results.dat','w')
 classification_result=sess.run(output,feed_dict)
 for i in range(len(classification_result)):
@@ -71,6 +75,7 @@ for i in range(len(classification_result)):
 		fh.write('\t')
 	fh.write('\n')
 classification=sess.run(tf.argmax(classification_result,1),feed_dict)
+print('Writing classes in clasification.dat')
 fh=open('clasification.dat','w')		
 for i in range(len(classification)):
 	fh.write(str(classification[i]))
