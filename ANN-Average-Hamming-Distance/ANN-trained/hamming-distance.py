@@ -117,7 +117,7 @@ for j in range(len(UNK)):
 		for l in range(len(ALL_list[k])):
 			search=ALL_list[k][l]
 			n+=1
-			print(j,k,l)
+			print('Compute Hamming ditance from reference ',j,' with continent ',k,' sample ',l)
 			hamming_chrom,hamming_avarage=hamming_distance(ref,search)
 			for m in range(22):
 				hamming_result[m]+=float(hamming_chrom[m][0])
