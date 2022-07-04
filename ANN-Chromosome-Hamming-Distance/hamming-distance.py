@@ -26,7 +26,7 @@ print(num_per_chrom)							#List of number of reads per chromosome
 for i in range(len(b)):
 	num_per_continet.append(int(b[i]))				#List of number of samples per continent
 print(num_per_continet)	
-
+print('Reading files to compute Hamming distance')
 def hamming_distance(line_ref,line_search):
 	'''
 	This function compute the Hamming distance from lines in *set.dat files.
@@ -118,7 +118,8 @@ for i in range(len(ALL_list)):									#Double loop to take the Hamilton distanc
 					if j==l:						#We skip compares a sample with itself
 						continue
 				n+=1
-				print(i,k,j,l)
+				print('Compute Hamming distance in continent ',i,' for sample ',
+				      j,' between continent ',k,' sample ',l)
 				hamming_chrom,hamming_avarage=hamming_distance(ref,search)	#Call the hamming_distance function
 				for m in range(22):
 					hamming_result[m]+=float(hamming_chrom[m][0])
@@ -148,7 +149,8 @@ for j in range(len(UNK)):
 		for l in range(len(ALL_list[k])):
 			search=ALL_list[k][l]
 			n+=1
-			print(j,k,l)
+			print('Compute Hamming distance in UNKown continent sample ',
+				      j,' between continent ',k,' sample ',l)
 			hamming_chrom,hamming_avarage=hamming_distance(ref,search)
 			for m in range(22):
 				hamming_result[m]+=float(hamming_chrom[m][0])
