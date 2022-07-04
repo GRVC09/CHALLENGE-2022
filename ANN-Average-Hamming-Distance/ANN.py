@@ -72,7 +72,7 @@ def train_neural_network(x):
 		sess.run(tf.initialize_all_variables())
 	    
 		for epoch in range(hm_epochs):
-			print(epoch)
+			print('Training epoch ',epoch,'/',hm_epochs)
 			
 			accuracy_aux=0
 			loss_aux=0
