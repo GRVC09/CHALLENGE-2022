@@ -1,7 +1,7 @@
 import re
 import os
 import sys
-
+print('Processing *.csv files.')
 def read_tsv(file):
 	'''Retunr datas from .tsv files in order as 
 	Chrom, Pos, Ref, Alt Alt, Format1, Format2, empty '''
