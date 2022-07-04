@@ -1,6 +1,7 @@
 num_per_chrom=[]
 num_per_continet=[]
 num_total=0
+print('Making groups of coninents...')
 with open('Information.txt','r') as info:			#From the Information file, we get the number of reads per chromosome and the 
 	for i in range(1,5):							#number of known samples per continent
 		line=info.readline()
@@ -11,10 +12,9 @@ with open('Information.txt','r') as info:			#From the Information file, we get t
 for i in range(len(a)):
 	num_per_chrom.append(int(a[i]))
 	num_total+=int(a[i])
-print(num_per_chrom)
 for i in range(len(b)):
 	num_per_continet.append(int(b[i]))
-print(num_per_continet)
+
 
 continents={'EUR','AFR','AMR','SAS','EAS','UNK'}				#List of continents
 
