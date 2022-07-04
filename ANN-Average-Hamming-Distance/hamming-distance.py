@@ -119,7 +119,7 @@ for i in range(len(ALL_list)):									#Double loop to take the Hamilton distanc
 						continue
 				n+=1
 				print('Compute Hamming distance in continent ',i,' for sample ',
-				      k,' between continent ',j,' sample ',l)
+				      j,' between continent ',k,' sample ',l)
 				hamming_chrom,hamming_avarage=hamming_distance(ref,search)	#Call the hamming_distance function
 				for m in range(22):
 					hamming_result[m]+=float(hamming_chrom[m][0])
@@ -150,7 +150,7 @@ for j in range(len(UNK)):
 			search=ALL_list[k][l]
 			n+=1
 			print('Compute Hamming distance in UNKown continent sample ',
-				      k,' between continent ',j,' sample ',l)
+				      j,' between continent ',k,' sample ',l)
 			hamming_chrom,hamming_avarage=hamming_distance(ref,search)
 			for m in range(22):
 				hamming_result[m]+=float(hamming_chrom[m][0])
