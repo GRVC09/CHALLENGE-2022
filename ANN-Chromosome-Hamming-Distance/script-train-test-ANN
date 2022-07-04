@@ -4,8 +4,10 @@
 
 gunzip *.vcf.gz				#Unzip all *.gz documents in *.vcf files
 
+echo 'Convert *.vcf -> csv'
 python conver_vcf_csv.py		#Convert *.vcf to *.csv files
 
+echo 'Processing csv files per continent'
 python pre-data-set.py			#This algorithm separated the .csv files for known continents (EUR.dat,AMR.dat...) or unknown (UNK.dat) 
 					#from the coordination.txt.
 					#Also, create the Information.txt file, where we have the description of the sample for any continent 
@@ -15,13 +17,17 @@ mkdir All_old_files			#Move all the files that we are not use anymore.
 mv *.csv All_old_files/
 mv *.vcf All_old_files/
 
-
+echo 'Processing files'
 python make_continent_datas.py		#At this point, we will use the make_continent_datas.py algorithm to get the data organized in a way  
-python hamming-distance.py		#that makes it easy to calculate the Hamming distance with the hamming-distance.py algorithm.
-					#The making_in_ANN.py generates the proper input format for tensorflow.
+					#that makes it easy to calculate the Hamming distance with the hamming-distance.py algorithm.
+echo 'Compute Hamming distance'		#The making_in_ANN.py generates the proper input format for tensorflow.
+python hamming-distance.py		
+					
 
 
 python ANN.py				#At the end, we feed the ANN with the processing datas and save the model in the .meta file
+
+echo 'Predicting the population for each sample and save the results in Prediction.txt'
 python ANN_prediction.py		#To predict the ancestry of each sample, we use the ANN_prediction where the .meta file 
 					#contains all the values for weights and bias.
 
