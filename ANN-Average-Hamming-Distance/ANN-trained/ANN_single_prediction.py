@@ -16,6 +16,7 @@ predict_set=create_feature_sets('UNK_avr.dat')
 
 sess=tf.Session()    
 #First let's load meta graph and restore weights
+print('Load parameters...')
 saver = tf.train.import_meta_graph('model1-1000.meta')
 saver.restore(sess,tf.train.latest_checkpoint('./'))
 
@@ -69,6 +70,7 @@ output = tf.matmul(l3,output_layer['weight']) + output_layer['bias']
 
 fh=open('classification_results.dat','w')
 classification_result=sess.run(output,feed_dict)
+print('Write results in -> classification.dat')
 for i in range(len(classification_result)):
 	for j in range(5):
 		fh.write(str(classification_result[i][j]))
