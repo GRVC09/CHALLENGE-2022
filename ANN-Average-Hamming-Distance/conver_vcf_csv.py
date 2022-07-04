@@ -1,6 +1,6 @@
 import os
 import sys
-
+print('Convert *.vcf to *.csv')
 for x in os.listdir(os.path.dirname(os.path.abspath(sys.argv[0]))):						#Read al the  files in the current path
 	if x.endswith('.vcf'):											#Read only the vcf files
 		y=str(x)
